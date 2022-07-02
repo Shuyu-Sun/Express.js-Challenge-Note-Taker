@@ -15,7 +15,7 @@ module.exports = app => {
             // Read the db.json file and return all saved notes as JSON.
             res.json(notes);
         });
-        
+
         // Setup the /api/notes post route
         app.post("/api/notes", function(req, res) {
             // Receives a new note, adds it to db.json, then returns the new note
@@ -23,6 +23,13 @@ module.exports = app => {
             notes.push(newNote);
             updateDb();
             return console.log("Added new note: "+newNote.title);
+        });
+
+        // Deletes a note with specific id
+        app.delete("/api/notes/:id", function(req, res) {
+            notes.splice(req.params.id, 1);
+            updateDb();
+            console.log("Deleted note with id "+req.params.id);
         });
 
 
